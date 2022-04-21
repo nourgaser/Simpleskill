@@ -1,0 +1,122 @@
+from django.db import models
+from django.contrib.auth import models as authModels
+from django.core import validators
+
+# Create your models here.
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=128)
+    users_interested = models.ManyToManyField(
+        authModels.User, through="UserInterest")
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=128)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "%s:%s" % (self.category, self.name)
+
+
+class Simpleskill(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+
+    prerequisites = models.ManyToManyField("self", through="Prerequisite")
+    users_registered = models.ManyToManyField(
+        authModels.User, related_name="registered_simpleskills", through="RegisteredSimpleskill")
+    user_feedback = models.ManyToManyField(
+        authModels.User, related_name="simpleskills_feedback", through="Feedback")
+
+    tags = models.ManyToManyField(Tag)
+
+    class Level(models.IntegerChoices):
+        BEGINNER = 0, 'Beginner'
+        INTERMEDIATE = 1, 'Intermediate'
+        ADVANCED = 2, 'Advanced'
+    level = models.IntegerField(choices=Level.choices)
+
+    class TimeClass(models.IntegerChoices):
+        SHORT = 0, 'Short'
+        MEDIUM = 1, 'Medium'
+        LONG = 2, 'Long'
+    time_class = models.IntegerField(choices=TimeClass.choices)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+class Prerequisite(models.Model):
+    from_simpleskill = models.ForeignKey(
+        Simpleskill, related_name="pre", on_delete=models.CASCADE)
+    to_simpleskill = models.ForeignKey(
+        Simpleskill, related_name="next", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "%s is a prerequisite to %s" % (self.from_simpleskill, self.to_simpleskill)
+
+
+    class Importance(models.IntegerChoices):
+        LOW = 0, 'Low',
+        MEDIUM = 1, 'Medium',
+        HIGH = 2, 'High'
+    importance = models.IntegerField(choices=Importance.choices)
+
+
+class RegisteredSimpleskill(models.Model):
+    user = models.ForeignKey(authModels.User, on_delete=models.CASCADE)
+    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
+    date_started = models.DateField()
+
+
+class UserInterest(models.Model):
+    user = models.ForeignKey(authModels.User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    interest_level = models.IntegerField(default=0, validators=[
+                                         validators.MinValueValidator(0), validators.MaxValueValidator(100)])
+
+    class Level(models.IntegerChoices):
+        BEGINNER = 0, 'Beginner'
+        INTERMEDIATE = 1, 'Intermediate'
+        ADVANCED = 2, 'Advanced'
+    experience_level = models.IntegerField(choices=Level.choices)
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(authModels.User, null=True,
+                             on_delete=models.SET_NULL)
+    simpleskill = models.ForeignKey(Simpleskill, null=True,
+                                    on_delete=models.CASCADE)
+    quality_vote = models.BooleanField()
+    enjoyment_vote = models.BooleanField()
+    date_collected = models.DateField()
+
+
+class Milestone(models.Model):
+    name = models.CharField(max_length=128)
+    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
+    description = models.TextField()
+
+    def __str__(self):
+        return "%s:%s:%s" % (self.simpleskill, self.name, self.description)
+
+
+class Material(models.Model):
+    name = models.CharField(max_length=128)
+    title = models.CharField(max_length=256)
+    description = models.TextField()
+    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
+    url = models.URLField()
+
+    class MaterialType(models.IntegerChoices):
+        ARTICLE = 0, 'Article'
+        VIDEO = 1, 'Video'
+        PROJECT = 2, 'Project'
+    type = models.IntegerField(choices=MaterialType.choices)
+
+    def __str__(self):
+        return "%s:%s:%s" % (self.milestone, self.name, self.description)
