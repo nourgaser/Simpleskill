@@ -1,14 +1,20 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth import models as authModels
 from django.core import validators
 
 # Create your models here.
 
 
+class User(authModels.AbstractUser):
+    birthdate = models.DateField(null=True)
+    pass
+
+
 class Category(models.Model):
     name = models.CharField(max_length=128)
     users_interested = models.ManyToManyField(
-        authModels.User, through="UserInterest")
+        settings.AUTH_USER_MODEL, through="UserInterest")
 
     def __str__(self):
         return "%s" % (self.name)
@@ -28,9 +34,9 @@ class Simpleskill(models.Model):
 
     prerequisites = models.ManyToManyField("self", through="Prerequisite")
     users_registered = models.ManyToManyField(
-        authModels.User, related_name="registered_simpleskills", through="RegisteredSimpleskill")
+        settings.AUTH_USER_MODEL, related_name="registered_simpleskills", through="RegisteredSimpleskill")
     user_feedback = models.ManyToManyField(
-        authModels.User, related_name="simpleskills_feedback", through="Feedback")
+        settings.AUTH_USER_MODEL, related_name="simpleskills_feedback", through="Feedback")
 
     tags = models.ManyToManyField(Tag)
 
@@ -67,7 +73,7 @@ class Prerequisite(models.Model):
 
 
 class UserInterest(models.Model):
-    user = models.ForeignKey(authModels.User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     interest_level = models.IntegerField(default=0, validators=[
                                          validators.MinValueValidator(0), validators.MaxValueValidator(100)])
@@ -80,7 +86,7 @@ class UserInterest(models.Model):
 
 
 class Feedback(models.Model):
-    user = models.ForeignKey(authModels.User, null=True,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
                              on_delete=models.SET_NULL)
     simpleskill = models.ForeignKey(Simpleskill, null=True,
                                     on_delete=models.CASCADE)
@@ -116,7 +122,7 @@ class Material(models.Model):
 
 
 class RegisteredSimpleskill(models.Model):
-    user = models.ForeignKey(authModels.User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
 
     finished_materials = models.ManyToManyField(Material)

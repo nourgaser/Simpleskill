@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  min-height: 100%;
+  background: #FCFAF6;
+  color: #1C2A2C;
+  font-family: 'Sen', sans-serif;
+}
+/* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */
+
+body {
+  font-size: 1.4rem;
+  text-rendering: optimizeLegibility;
+}
+/* sets the base font size for the document; turns on kerning pairs and ligatures */
+
+body,
+ul,
+ol,
+dl {
+  margin: 0;
+}
+h1 {
+  font-size: 1.4rem;
+}
+
+p {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+/* sets hyphenation by default on paragraphs */

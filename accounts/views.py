@@ -1,6 +1,6 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.contrib.auth import authenticate
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.contrib.auth import models, get_user_model
 from django.http import HttpResponse
 
 # Create your views here.
@@ -9,10 +9,9 @@ def register(request):
     if request.method == 'GET':
         return render(request, "registration/register.html")
     elif request.method == 'POST':
-        print(request.POST['fname'])
-        context = {
-            'error': {
-                'message': "You didn't enter the right data"
-            }
-        }
-        return render(request, "registration/register.html", context)
+        newUser = get_user_model().objects.create_user(request.POST['username'], request.POST['email'], request.POST['password1'])
+        newUser.last_name = request.POST['lname']
+        newUser.first_name = request.POST['fname']
+        newUser.birthdate = request.POST['bdate']
+        newUser.save()
+        return redirect('/app')
