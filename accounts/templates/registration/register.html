@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %} {% if error %}
+<p>{{error.message}}</p>
+{% endif %} {% if next %} {% if user.is_authenticated %}
+<p>
+  Your account doesn't have access to this page. To proceed, please login with
+  an account that has access.
+</p>
+{% else %}
+<p>Please login to see this page.</p>
+{% endif %} {% endif %}
+
+<form method="post" action="{% url 'accounts:register' %}">
+  {% csrf_token %}
+
+  <label for="fname">First name:</label><br />
+  <input type="text" id="fname" name="fname" /><br />
+  <label for="lname">Last name:</label><br />
+  <input type="text" id="lname" name="lname" />
+
+  <input type="submit" value="register" />
+</form>
+
+{% endblock %}

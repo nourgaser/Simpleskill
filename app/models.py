@@ -59,18 +59,11 @@ class Prerequisite(models.Model):
     def __str__(self):
         return "%s is a prerequisite to %s" % (self.from_simpleskill, self.to_simpleskill)
 
-
     class Importance(models.IntegerChoices):
         LOW = 0, 'Low',
         MEDIUM = 1, 'Medium',
         HIGH = 2, 'High'
     importance = models.IntegerField(choices=Importance.choices)
-
-
-class RegisteredSimpleskill(models.Model):
-    user = models.ForeignKey(authModels.User, on_delete=models.CASCADE)
-    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
-    date_started = models.DateField()
 
 
 class UserInterest(models.Model):
@@ -120,3 +113,12 @@ class Material(models.Model):
 
     def __str__(self):
         return "%s:%s:%s" % (self.milestone, self.name, self.description)
+
+
+class RegisteredSimpleskill(models.Model):
+    user = models.ForeignKey(authModels.User, on_delete=models.CASCADE)
+    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
+
+    finished_materials = models.ManyToManyField(Material)
+
+    date_started = models.DateField()
