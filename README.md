@@ -20,7 +20,7 @@ Feel free to check this website's design on [Figma](https://www.figma.com/file/D
 ![Set your experience level design](https://github.com/nourgaser/Simpleskill/blob/main/demo/img/experience_level.png "experience_level")
 
 ##### Dashboard
-![dashboard design](https://github.com/nourgaser/Simpleskill/blob/main/demo/img/experience_level.png "dashboard")
+![dashboard design](https://github.com/nourgaser/Simpleskill/blob/main/demo/img/dashboard.png "dashboard")
 
 ### Team
 | Name        | ID           |
