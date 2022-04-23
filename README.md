@@ -22,6 +22,9 @@ Feel free to check this website's design on [Figma](https://www.figma.com/file/D
 ##### Dashboard
 ![dashboard design](https://github.com/nourgaser/Simpleskill/blob/main/demo/img/dashboard.png "dashboard")
 
+### Live Demo
+A live demo of the website can be viewed [here](https://simpleskill.nourgaser.com).
+
 ### Team
 | Name        | ID           |
 | ------------- |:-------------:|
