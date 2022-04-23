@@ -15,4 +15,4 @@ services:
     working_dir: /code
     command: >
       bash -c "pip install -r requirements.txt 
-      && python manage.py runserver 0.0.0.0:8000"
+      && python manage.py makemigrations && python migrate && python manage.py runserver 0.0.0.0:8000"
