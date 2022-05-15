@@ -29,7 +29,7 @@ A live demo of the website can be viewed [here](https://simpleskill.nourgaser.co
 | Name        | ID           |
 | ------------- |:-------------:|
 | [Nour Gaser](https://github.com/nourgaser)      | 89553      |
-| [Rokaia Medhat](https://github.com/nourgaser)      | 89380      |
+| [Rokaia Medhat](https://github.com/1Rooky)      | 89380      |
 | [Ahmed Khaled Kira](https://github.com/ahm3dkira)      | 89671      |
 
 This project is a demo for a future possible project and is used as a submission for a university project.
