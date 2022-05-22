@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>What are your interests?</h1>
+<p>You can add/remove any of them later at any time. It is not recommended that you skip this as it helps with recommendations.</p>
+<form method="post" action="{% url 'app:configure_interests' %}">
+    {% csrf_token %}
+    {% for field in fields %}
+    <input type="checkbox" id="{{field.id}}" name="{{field.id}}" value="{{field.id}}" {% if field.id in interests_ids %}checked{% endif%}>
+    <label for="{{field.id}}"> {{field.name}}</label><br>
+    {% endfor %}
+    <input type="submit" value="NEXT" />
+    <a href="{% url 'app:dashboard' %}">skip</a>
+  </form>
+
+{% endblock content %}

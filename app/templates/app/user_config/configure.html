@@ -1,0 +1,8 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<h1>Settings</h1>
+<a href="{% url 'app:configure_interests' %}">Update your interests</a>
+<a href="{% url 'app:configure_experience_level' %}">Update your experience levels</a>
+<a href="{% url 'app:configure_interest_levels' %}">Update your interest levels</a>
+
+{% endblock content %}

@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import models as authModels
@@ -6,6 +7,13 @@ from django.core import validators
 # Create your models here.
 class User(authModels.AbstractUser):
     birthdate = models.DateField(null=True)
+    class Mood(models.IntegerChoices):
+        SHORT = 0, 'Short'
+        LONG = 1, 'Long'
+        ADVENTUROUS = 2, 'Adventurous'
+        IMPROVE = 3, 'Improve'
+        LUCKY = 4, 'Lucky'
+    mood = models.IntegerField(choices=Mood.choices, default=4)
     pass
 
 
@@ -80,7 +88,7 @@ class UserInterest(models.Model):
         BEGINNER = 0, 'Beginner'
         INTERMEDIATE = 1, 'Intermediate'
         ADVANCED = 2, 'Advanced'
-    experience_level = models.IntegerField(choices=Level.choices)
+    experience_level = models.IntegerField(choices=Level.choices, default=0)
     def __str__(self):
         return "%s->%s:%d" % (self.user, self.category, self.experience_level)
 
@@ -127,4 +135,4 @@ class RegisteredSimpleskill(models.Model):
 
     finished_materials = models.ManyToManyField(Material, null=True)
 
-    date_started = models.DateField()
+    date_started = models.DateTimeField(default=datetime.now, blank=True)

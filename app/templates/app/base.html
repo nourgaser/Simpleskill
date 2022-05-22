@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block header %}
+<header>
+  <img src="{% static 'logo1.svg' %}" alt="logo" class="logo" />
+  <h1>{% block header_title %}PageName{% endblock header_title %}</h1>
+
+  <div class="user-section">
+    <i class="fa-solid fa-user"></i>
+    <p class="upper">
+      Welcome, {% block header_first_name %}UserName{% endblock header_first_name %}
+    </p>
+    <div class="user-menu hidden">
+      <div class="upper">
+        {% block header_menu_name %}Firstname Lastname{% endblock header_menu_name %}
+        <p>Random Quote Here</p>
+      </div>
+      <div class="lower">
+        <p>Accounts</p>
+        <a href="{% url 'app:configure_index' %}">Settings & Privacy</a>
+        <a href="#">Help</a>
+        <a href="#">Language</a>
+      </div>
+      <div class="logout">
+        <button>Logout</button>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock header %}

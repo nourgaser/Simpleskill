@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
 
+:root {
+  --light: #fcfaf6;
+  --dark: #1c2a2c;
+  --dark-light: #293e41;
+  --accent: #82b0b7;
+}
+
 * {
   box-sizing: border-box;
 }
 html,
 body {
   min-height: 100%;
-  background: #FCFAF6;
-  color: #1C2A2C;
+  background: var(--light);
+  color: var(--dark);
   font-family: 'Sen', sans-serif;
 }
 /* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */

@@ -1,0 +1,15 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Rate your interests</h1>
+<p>We are more likely to recommend you what matters to you most.</p>
+<form method="post" action="{% url 'app:configure_interest_levels' %}">
+    {% csrf_token %}
+    {% for interest in interests.all %}
+    <input type="number" id="{{interest.id}}" name={{interest.id}} value="{{interest.interest_level}}" min=0 max=100>
+    <label for="{{interest.id}}"> {{interest.category}}</label><br>
+    {% endfor %}
+    <input type="submit" value="NEXT" />
+    <a href="{% url 'app:dashboard' %}">skip</a>
+  </form>
+{% endblock content %}

@@ -1,7 +1,5 @@
 {% extends 'website/base.html' %} {% block header_first_name %}
-{{user.first_name | title}} {% endblock header_first_name %} {% block
-header_menu_name %}{{user.first_name | title}} {{user.last_name | title}}{%
-endblock header_menu_name %} {% block content %}
+{{user.first_name | title}} {% endblock header_first_name %} {% block header_menu_name %} {{user.first_name | title}} {{user.last_name | title}}{% endblock header_menu_name %} {% block content %}
 <div class="hero">
   <div class="art">Some art</div>
   <div class="slogan upper">
@@ -27,7 +25,9 @@ endblock header_menu_name %} {% block content %}
     rerum!
   </p>
   <img src="" alt="" class="left_img" />
-  <button class="call_to_action upper">Start learning now</button>
+  <button class="call_to_action upper">
+    <p class="text">Start learning now</p>
+  </button>
   <p>
     Your first
     <span class="simpleskill_text"><a href="#"> simpleskill </a></span> awaits.

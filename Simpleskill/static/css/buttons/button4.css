@@ -1,0 +1,52 @@
+.button4 {
+    width: 385px;
+    height: 76px;
+    color: var(--light);
+    font-weight: bold;
+    cursor: pointer;
+    transition: border-radius 1s ease;
+    position: relative;
+    background-color: var(--dark);
+    font-size: 26px;
+    border: none;
+    border-radius: 43px 160px 40px 160px;
+  }
+
+  .button4:after {
+    --borderWidth: 8px;
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2);
+    background: linear-gradient(90deg, var(--light), var(--dark));
+    border-radius: 43px 160px 40px 160px;
+    z-index: -1;
+    animation: animatedgradient 1s linear alternate infinite;
+    background-size: 300% 300%;
+    transition: border-radius 1s ease, opacity 1s ease;
+  }
+
+  .button4:hover,
+  .button4:hover:after {
+    border-radius: 160px 43px 160px 40px;
+  }
+
+  .button4:active {
+    transform: translateY(2px);
+  }
+
+  .button4:active:after {
+    transition: opacity 0s;
+    opacity: 0;
+  }
+
+  @keyframes animatedgradient {
+    from {
+      background-position: 0% 50%;
+    }
+    to {
+      background-position: 100% 50%;
+    }
+  }

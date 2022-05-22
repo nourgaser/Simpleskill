@@ -27,7 +27,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.17.0.1,simpleskill.nourgaser.com,nourgaser.com").split(",")
+ALLOWED_HOSTS = os.getenv(
+    "DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.17.0.1,simpleskill.nourgaser.com,nourgaser.com").split(",")
 
 
 # Application definition
@@ -61,6 +62,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            "Simpleskill/templates",
             BASE_DIR/'templates',
         ],
         'APP_DIRS': True,
@@ -120,7 +122,8 @@ USE_I18N = True
 USE_TZ = True
 
 AUTH_USER_MODEL = 'app.User'
-
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "/app"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 

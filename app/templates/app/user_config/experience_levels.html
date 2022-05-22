@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Approximate your skill level</h1>
+<p>You can change this later at any time.</p>
+<form method="post" action="{% url 'app:configure_experience_level' %}">
+    {% csrf_token %}
+    {% for interest in interests.all %}
+    <p>{{interest.category}}</p>
+    <input type="radio" id="{{interest.id}}-eb" name={{interest.id}} value=0 {% if interest.experience_level == 0 %}checked{% endif %}>
+    <label for="{{interest.id}}-eb"> Beginner </label><br>
+
+    <input type="radio" id="{{interest.id}}-ei" name={{interest.id}} value=1 {% if interest.experience_level == 1 %}checked{% endif %}>
+    <label for="{{interest.id}}-ei"> Intermediate </label><br>
+
+    <input type="radio" id="{{interest.id}}-ea" name={{interest.id}} value=2 {% if interest.experience_level == 2 %}checked{% endif %}>
+    <label for="{{interest.id}}-ea"> Advanced </label><br>
+    {% endfor %}
+    <input type="submit" value="NEXT" />
+    <a href="{% url 'app:dashboard' %}">skip</a>
+  </form>
+{% endblock content %}
