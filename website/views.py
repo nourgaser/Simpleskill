@@ -5,7 +5,7 @@ from app.models import *
 # Create your views here.
 def index(request):
     user = request.user
-    print(user)
+    print(user.username)
     data = Simpleskill.objects.all()
     context = {
         'data': data,

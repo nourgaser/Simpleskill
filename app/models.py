@@ -4,8 +4,6 @@ from django.contrib.auth import models as authModels
 from django.core import validators
 
 # Create your models here.
-
-
 class User(authModels.AbstractUser):
     birthdate = models.DateField(null=True)
     pass
@@ -14,7 +12,7 @@ class User(authModels.AbstractUser):
 class Category(models.Model):
     name = models.CharField(max_length=128)
     users_interested = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, through="UserInterest")
+        settings.AUTH_USER_MODEL, through="UserInterest", related_name="interests")
 
     def __str__(self):
         return "%s" % (self.name)
@@ -22,7 +20,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=128)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="tags")
 
     def __str__(self):
         return "%s:%s" % (self.category, self.name)
@@ -38,7 +36,7 @@ class Simpleskill(models.Model):
     user_feedback = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="simpleskills_feedback", through="Feedback")
 
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name="simpleskills")
 
     class Level(models.IntegerChoices):
         BEGINNER = 0, 'Beginner'
@@ -83,6 +81,8 @@ class UserInterest(models.Model):
         INTERMEDIATE = 1, 'Intermediate'
         ADVANCED = 2, 'Advanced'
     experience_level = models.IntegerField(choices=Level.choices)
+    def __str__(self):
+        return "%s->%s:%d" % (self.user, self.category, self.experience_level)
 
 
 class Feedback(models.Model):
@@ -97,8 +97,8 @@ class Feedback(models.Model):
 
 class Milestone(models.Model):
     name = models.CharField(max_length=128)
-    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
-    description = models.TextField()
+    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE, related_name="milestones")
+    description = models.TextField(null=True)
 
     def __str__(self):
         return "%s:%s:%s" % (self.simpleskill, self.name, self.description)
@@ -106,9 +106,9 @@ class Milestone(models.Model):
 
 class Material(models.Model):
     name = models.CharField(max_length=128)
-    title = models.CharField(max_length=256)
-    description = models.TextField()
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
+    title = models.CharField(max_length=256, null=True)
+    description = models.TextField(null=True)
+    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, related_name="materials")
     url = models.URLField()
 
     class MaterialType(models.IntegerChoices):
@@ -125,6 +125,6 @@ class RegisteredSimpleskill(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
 
-    finished_materials = models.ManyToManyField(Material)
+    finished_materials = models.ManyToManyField(Material, null=True)
 
     date_started = models.DateField()

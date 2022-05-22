@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block page_title %}Title Here{% endblock page_title %}</title>
+    <link rel="stylesheet" href="{% static 'global.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/9496d93890.js"
+      crossorigin="anonymous"
+    ></script>
+    {% block head %}{% endblock head %}
+  </head>
+  <body>
+    {% block header %}
+
+    <header>
+      <ul class="links upper">
+        <li class="logo">
+          <img src="{% static 'logo1.png' %}" alt="" />
+        </li>
+        <li class="nav-link" id="fields">
+          <i class="fa-solid fa-caret-right"></i>
+          Fields
+        </li>
+        <li class="nav-link">Home</li>
+        <li class="nav-link">About</li>
+        <li class="nav-link">How to Use</li>
+      </ul>
+      <div class="user-section">
+        <i class="fa-solid fa-user"></i>
+        <p class="upper">Welcome, {% block header_first_name %}UserName{% endblock header_first_name %}</p>
+        <div class="user-menu hidden">
+          <div class="upper">
+            {% block header_menu_name %}Firstname Lastname{% endblock header_menu_name %}
+            <p>
+              Random Quote Here
+            </p>
+            <button>Go To Skill Portal</button>
+          </div>
+          <div class="lower">
+            <p>Accounts</p>
+            <a href="#">Settings & Privacy</a>
+            <a href="#">Help</a>
+            <a href="#">Language</a>
+          </div>
+          <div class="logout">
+            <button>Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {% endblock %}
+    <div class="main-container">{% block content %}{% endblock content %}</div>
+    <footer>
+      <div class="section1">
+        <img src="{% static 'logo3.png' %}" alt="logo" class="logo">
+        <p>Bitesize <span class="simpleskill_word">simpleskills</span> on the daily.</p>
+      </div>
+      <div class="section2 upper">
+        <ul >
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Fields</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">How to use</a></li>
+        </ul>
+      </div>
+      <div class="section3">
+        <p>Find us on</p>
+        <i class="fa-brands fa-facebook-f"></i>
+        <i class="fa-brands fa-github"></i>
+        <i class="fa-brands fa-linkedin-in"></i>
+      </div>
+    </footer>
+  </body>
+</html>

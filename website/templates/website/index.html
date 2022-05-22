@@ -1,31 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simpleskill</title>
-  </head>
-  <body>
-    <a href="{% url 'app:index' %}">Go to App</a>
-    <br />
-    <br />
-    <br />
-    {{data}} {% for ss in data%}
-    <div class="skill">
-      <p>id: {{ss.id}}</p>
-      <p>title: {{ss.name}}</p>
-    </div>
-    {% endfor %}
+{% extends 'website/base.html' %} {% block header_first_name %}
+{{user.first_name | title}} {% endblock header_first_name %} {% block
+header_menu_name %}{{user.first_name | title}} {{user.last_name | title}}{%
+endblock header_menu_name %} {% block content %}
+<div class="hero">
+  <div class="art">Some art</div>
+  <div class="slogan upper">
+    <p class="slogan_text">
+      LearnSkills <span class="slogan_text_inner">through simpleskills</span>
+    </p>
+  </div>
+</div>
+<div class="main">
+  <h1 class="upper">How it works</h1>
+  <div class="how_it_works upper">
+    <p class="block">choose your interests</p>
+    <p class="block">commit to a skill</p>
+    <p class="block">collect simpleskills</p>
+  </div>
+  <h1>Effortlessly become experienced in many fields</h1>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore ipsam
+    aspernatur nobis sed quae eveniet perspiciatis? Consectetur cum vel tempora
+    quaerat consequatur est, harum nostrum porro odio corporis fugiat libero sed
+    enim accusantium labore fugit! Earum dolorum voluptas distinctio tempora.
+    Molestiae qui corrupti in explicabo repellendus, repellat perspiciatis cum
+    rerum!
+  </p>
+  <img src="" alt="" class="left_img" />
+  <button class="call_to_action upper">Start learning now</button>
+  <p>
+    Your first
+    <span class="simpleskill_text"><a href="#"> simpleskill </a></span> awaits.
+  </p>
+</div>
+{% endblock content %} {% comment %}
 
-    <br>
-    <br>
-    <br>
-    <br>
-    username: {{user.registered_simpleskills}}
-    <br>
-    name: {{user.first_name | title}} {{user.last_name | title}}
+<a href="{% url 'app:index' %}">Go to App</a>
+<br />
+<br />
+<br />
+{{data}} {% for ss in data%}
+<div class="skill">
+  <p>id: {{ss.id}}</p>
+  <p>title: {{ss.name}}</p>
+</div>
+{% endfor %}
 
-
-  </body>
-</html>
+<br />
+<br />
+<br />
+<br />
+username: {{user.registered_simpleskills}}
+<br />
+name: {{user.first_name | title}} {{user.last_name | title}} {% endcomment %}
