@@ -125,6 +125,8 @@ class Material(models.Model):
         ARTICLE = 0, 'Article'
         VIDEO = 1, 'Video'
         PROJECT = 2, 'Project'
+        GAME = 3, 'Game'
+        OTHER = 4, 'Other'
     type = models.IntegerField(choices=MaterialType.choices)
 
     def __str__(self):
