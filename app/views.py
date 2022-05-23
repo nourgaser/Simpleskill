@@ -1,6 +1,5 @@
 from re import M
 from django.shortcuts import redirect, render
-from matplotlib.style import available
 from .models import *
 from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
