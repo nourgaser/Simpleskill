@@ -43,6 +43,8 @@ class Simpleskill(models.Model):
         settings.AUTH_USER_MODEL, related_name="registered_simpleskills", through="RegisteredSimpleskill")
     user_feedback = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="simpleskills_feedback", through="Feedback")
+    users_finished = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="finished_simpleskills", through="FinishedSimpleskill")
 
     tags = models.ManyToManyField(Tag, related_name="simpleskills")
 
@@ -136,3 +138,8 @@ class RegisteredSimpleskill(models.Model):
     finished_materials = models.ManyToManyField(Material, null=True)
 
     date_started = models.DateTimeField(default=datetime.now, blank=True)
+
+class FinishedSimpleskill(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    simpleskill = models.ForeignKey(Simpleskill, on_delete=models.CASCADE)
+    date_finished = models.DateTimeField(default=datetime.now, blank=True)
