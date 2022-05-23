@@ -22,7 +22,18 @@ urlpatterns = [
     
     #learn a registered simpleskill (view material and track progress here)
     path('learn/<int:ssid>', views.learn, name='learn'),
+    path('unlearn/<int:ssid>', views.unlearn, name='unlearn'),
+    path('finished/', views.finished, name='finished'),
+    path('finished/<int:fid>', views.finished, name='finished'),
     
+    
+    path('finish/<int:ssid>', views.finish, name='finish'),
+    path('unfinish/<int:ssid>', views.unfinish, name='unfinish'),
+    
+    path('finish/<int:rssid>/<int:mid>', views.finish_material, name='finish_material'),
+    path('unfinish/<int:rssid>/<int:mid>', views.unfinish_material, name='unfinish_material'),
+
+
     # explore new simpleskills (recommendations, search and filters)
     path('explore', views.explore, name='explore'),
 ]

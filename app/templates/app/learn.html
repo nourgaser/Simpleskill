@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}{{ss}}{% endblock title %}
+
+{% block header_title %}{{ss}}{% endblock header_title %}
+
+{% block header_first_name %}{{user.first_name}}{% endblock header_first_name %}
+
+{% block header_menu_name %}
+{{user.first_name}} {{user.last_name}}
+{% endblock header_menu_name %}
+
+{% block content %}
+<div class="main_container">
+    <h1>You're learning: {{ss}}</h1>
+    <a href="{% url 'app:unlearn' ss.id%}">Drop Simpleskill</a>
+    <a href="{% url 'app:finish' ss.id%}">Mark as Finished</a>
+
+    <div class="milestones">
+        {% for milestone in ss.milestones.all %}
+            <div class="milestone">
+               <h2 class="milestone-title">{{milestone.name}}</h2>
+               <ul class="materials">
+                   {% for material in milestone.materials.all %}
+                        <li class="material">
+                            {{material.name}}: <a href="{{material.url}}">{{material.url}}</a>
+                            {% if material in rss.finished_materials.all %}
+                                    <a href="{% url 'app:unfinish_material' rss.id material.id %}">
+                                        <img src="{% static 'app/complete.svg' %}" alt="complete_icon">
+                                    </a>
+                            {% else %}
+                                    <a href="{% url 'app:finish_material' rss.id material.id %}">
+                                        <img src="{% static 'app/incomplete.svg' %}" alt="incomplete_icon">
+                                    </a>
+                            {% endif %}
+                        </li>
+                   {% endfor %}
+               </ul> 
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}

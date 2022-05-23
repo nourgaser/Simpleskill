@@ -3,7 +3,9 @@
 
 {% block header %}
 <header>
-  <img src="{% static 'logo1.svg' %}" alt="logo" class="logo" />
+  <a href="{% url 'app:dashboard' %}">
+    <img src="{% static 'logo1.svg' %}" alt="logo" class="logo" />
+  </a>
   <h1>{% block header_title %}PageName{% endblock header_title %}</h1>
 
   <div class="user-section">

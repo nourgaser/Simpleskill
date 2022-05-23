@@ -26,34 +26,9 @@
 </div>
 {% comment %} <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> {% endcomment %}
 
-<h1>Available Simpleskills</h1>
-<div class="ongoing">
-    {% for ss in available_simpleskills %}
-        <div class="ss-card">
-            <div class="section1">
-                <p style="font-size: 24px">SIMPLESKILL</p>
-                <p class="title">{{ss}}</p>
-                <p>
-                    View prerequisites
-                    <i class="fa-solid fa-angle-right"></i>
-                </p>
-                <div class="prerequisites hidden">
-                    {% for pre in ss.prerequisites.all %}
-                    {{pre}}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="section2">
-                <p style="font-size: 24px">OVERVIEW</p>
-                <p class="desc">{{ss.description}}</p>
-                <p class="level">LEVEL: {{ss.level}}</p>
-                <p class="timeclass">DURATION: {{ss.time_class}}</p>
-                <a href="{% url 'app:learn' ss.id %}">Start</a>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-
+<a href="{% url 'app:finished' %}">
+    <h1>View Finished</h1>
+</a>
 
 
 <h1>Ongoing Simpleskills</h1>
@@ -83,5 +58,34 @@
         </div>
     {% endfor %}
 </div>
+
+<h1>Available Simpleskills</h1>
+<div class="ongoing">
+    {% for ss in available_simpleskills %}
+        <div class="ss-card">
+            <div class="section1">
+                <p style="font-size: 24px">SIMPLESKILL</p>
+                <p class="title">{{ss}}</p>
+                <p>
+                    View prerequisites
+                    <i class="fa-solid fa-angle-right"></i>
+                </p>
+                <div class="prerequisites hidden">
+                    {% for pre in ss.prerequisites.all %}
+                    {{pre}}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="section2">
+                <p style="font-size: 24px">OVERVIEW</p>
+                <p class="desc">{{ss.description}}</p>
+                <p class="level">LEVEL: {{ss.level}}</p>
+                <p class="timeclass">DURATION: {{ss.time_class}}</p>
+                <a href="{% url 'app:learn' ss.id %}">Start</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 
 {% endblock content %}

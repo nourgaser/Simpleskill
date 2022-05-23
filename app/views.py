@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
+
 @login_required
 def dashboard(request, fid=-1):
     onGoingSimpleskills = []
@@ -17,22 +18,25 @@ def dashboard(request, fid=-1):
     seen = set()
     if fid == -1:
         for tag in Tag.objects.all():
-                for ss in tag.simpleskills.all():
-                    if ss not in seen:
-                        if ss in registered: onGoingSimpleskills.append(ss)
-                        elif tag.category in interests: availableSimpleskills.append(ss)
-                        seen.add(ss)
+            for ss in tag.simpleskills.all():
+                if ss not in seen:
+                    if ss in registered:
+                        onGoingSimpleskills.append(ss)
+                    elif tag.category in interests and ss not in user.finished_simpleskills.all():
+                        availableSimpleskills.append(ss)
+                    seen.add(ss)
     else:
         for tag in Tag.objects.all():
             if tag.category in interests and tag.category.id == fid:
                 for ss in tag.simpleskills.all():
                     if ss not in seen:
-                        if ss in registered: onGoingSimpleskills.append(ss)
-                        else: availableSimpleskills.append(ss)
-                        seen.add(ss)        
+                        if ss in registered:
+                            onGoingSimpleskills.append(ss)
+                        elif ss not in user.finished_simpleskills.all():
+                            availableSimpleskills.append(ss)
+                        seen.add(ss)
 
     context = {
-        "page_name": "Dashboard",
         "user": user,
         "ongoing_simpleskills": onGoingSimpleskills,
         "available_simpleskills": availableSimpleskills
@@ -95,12 +99,86 @@ def experience_level(request):
 def learn(request, ssid):
     user = request.user
     ss = Simpleskill.objects.get(id=ssid)
-    if Simpleskill.objects.get(id=ssid) not in user.registered_simpleskills.all():
+    if ss not in user.registered_simpleskills.all() and ss not in user.finished_simpleskills.all():
         request.user.registered_simpleskills.add(ss)
-    res = "Hello from app:learn! You are learning: %s" % Simpleskill.objects.get(
-        id=ssid)
-    return HttpResponse(res)
 
+    context = {
+        "user": user,
+        "ss": ss,
+        "rss": RegisteredSimpleskill.objects.get(user=user, simpleskill=ss)
+    }
+    return render(request, 'app/learn.html', context=context)
+
+
+@login_required
+def unlearn(request, ssid):
+    user = request.user
+    ss = Simpleskill.objects.get(id=ssid)
+    if ss in user.registered_simpleskills.all():
+        RegisteredSimpleskill.objects.get(user=user, simpleskill=ss).delete()
+        # user.registered_simpleskills.remove(ss)
+    return redirect("/app")
+
+
+@login_required
+def finish(request, ssid):
+    user = request.user
+    ss = Simpleskill.objects.get(id=ssid)
+    if ss in user.registered_simpleskills.all():
+        user.finished_simpleskills.add(ss)
+        user.registered_simpleskills.remove(ss)
+    return redirect("/app/finished/%d" % ssid)
+
+
+@login_required
+def unfinish(request, ssid):
+    user = request.user
+    ss = Simpleskill.objects.get(id=ssid)
+    if ss in user.finished_simpleskills.all():
+        user.finished_simpleskills.remove(ss)
+        user.registered_simpleskills.add(ss)
+    return redirect("/app/learn/%d" % ssid)
+
+
+@login_required
+def finished(request, fid=-1):
+    finishedSimpleskills = []
+    user = request.user
+
+    seen = set()
+    if fid == -1:
+        finishedSimpleskills = user.finished_simpleskills.all()
+    else:
+        for ss in user.finished_simpleskills.all():
+            for tag in ss.tags.all():
+                if tag.category.id == fid:
+                    finishedSimpleskills.append(ss)
+                    break
+            seen.add(ss)
+    context = {
+        "user": user,
+        "finished_simpleskills": finishedSimpleskills,
+    }
+    return render(request, 'app/finished.html', context=context)
+
+
+@login_required
+def finish_material(request, rssid, mid):
+    user = request.user
+    rss = RegisteredSimpleskill.objects.get(id=rssid)
+    mat = Material.objects.get(id=mid)
+    if rss.simpleskill in user.registered_simpleskills.all():
+        rss.finished_materials.add(mat)
+    return redirect("/app/learn/%d" % rss.simpleskill.id)
+
+@login_required
+def unfinish_material(request, rssid, mid):
+    user = request.user
+    rss = RegisteredSimpleskill.objects.get(id=rssid)
+    mat = Material.objects.get(id=mid)
+    if rss.simpleskill in user.registered_simpleskills.all():
+        rss.finished_materials.remove(mat)
+    return redirect("/app/learn/%d" % rss.simpleskill.id)
 
 
 @login_required
