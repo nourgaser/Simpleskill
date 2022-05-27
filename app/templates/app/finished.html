@@ -1,13 +1,11 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}Finished Simpleskills{% endblock title %}
 
-{% block header_title %}Finished Simpleskills{% endblock header_title %}
 
-{% block header_first_name %}{{user.first_name}}{% endblock header_first_name %}
-
-{% block header_menu_name %}
-{{user.first_name}} {{user.last_name}}
-{% endblock header_menu_name %}
+{% block header %}
+{% include 'app/partials/header.html' with user=user pageName="Finished Simpleskills" %}
+{% endblock header %}
 
 {% block content %}
 <div class="main_container">

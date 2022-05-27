@@ -1,90 +1,50 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}Dashboard{% endblock title %}
 
-{% block header_title %}Dashboard{% endblock header_title %}
+{% block header %}
+{% include 'app/partials/header.html' with user=user pageName="Dashboard" %}
+{% endblock header %}
 
-{% block header_first_name %}{{user.first_name}}{% endblock header_first_name %}
-
-{% block header_menu_name %}
-{{user.first_name}} {{user.last_name}}
-{% endblock header_menu_name %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'app/css/sscard.css' %}">
+<link rel="stylesheet" href="{% static 'css/buttons/button2.css' %}">
+{% endblock head %}
 
 {% block content %}
 <div class="main_container">
-    <div class="interests">
-        <ul>
-            <li>
-                <a href="{% url 'app:dashboard'  %}">All</a>
-            </li>
-            {% for interest in user.interests.all %}
-            <li>
-                <a href="{% url 'app:dashboard' interest.id %}">{{interest}}</a>
-            </li>
-            {% endfor %}
-        </ul>
+        <div class="interests">
+            <ul>
+                <li>
+                    <a href="{% url 'app:dashboard'  %}">All</a>
+                </li>
+                {% for interest in user.interests.all %}
+                <li>
+                    <a href="{% url 'app:dashboard' interest.id %}">{{interest}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% comment %} <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> {% endcomment %}
+
+    <a href="{% url 'app:finished' %}">
+        <h1>View Finished</h1>
+    </a>
+
+
+    <h1>{{"Ongoing Simpleskills" | upper}}</h1>
+    <div class="sscard-container">
+        {% for ss in ongoing_simpleskills %}
+        {% include 'app/partials/osscard.html' with ss=ss %}
+        {% endfor %}
     </div>
-</div>
-{% comment %} <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> {% endcomment %}
 
-<a href="{% url 'app:finished' %}">
-    <h1>View Finished</h1>
-</a>
-
-
-<h1>Ongoing Simpleskills</h1>
-<div class="ongoing">
-    {% for ss in ongoing_simpleskills %}
-        <div class="ss-card">
-            <div class="section1">
-                <p style="font-size: 24px">SIMPLESKILL</p>
-                <p class="title">{{ss}}</p>
-                <p>
-                    View all milestones
-                    <i class="fa-solid fa-angle-right"></i>
-                </p>
-                <div class="prerequisites hidden">
-                    {% for pre in ss.prerequisites.all %}
-                    {{pre}}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="section2">
-                <p style="font-size: 24px">OVERVIEW</p>
-                <p class="desc">{{ss.description}}</p>
-                <p class="level">LEVEL: {{ss.level}}</p>
-                <p class="timeclass">DURATION: {{ss.time_class}}</p>
-                <a href="{% url 'app:learn' ss.id %}">Continue</a>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-
-<h1>Available Simpleskills</h1>
-<div class="ongoing">
-    {% for ss in available_simpleskills %}
-        <div class="ss-card">
-            <div class="section1">
-                <p style="font-size: 24px">SIMPLESKILL</p>
-                <p class="title">{{ss}}</p>
-                <p>
-                    View prerequisites
-                    <i class="fa-solid fa-angle-right"></i>
-                </p>
-                <div class="prerequisites hidden">
-                    {% for pre in ss.prerequisites.all %}
-                    {{pre}}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="section2">
-                <p style="font-size: 24px">OVERVIEW</p>
-                <p class="desc">{{ss.description}}</p>
-                <p class="level">LEVEL: {{ss.level}}</p>
-                <p class="timeclass">DURATION: {{ss.time_class}}</p>
-                <a href="{% url 'app:learn' ss.id %}">Start</a>
-            </div>
-        </div>
-    {% endfor %}
+    <h1>{{"Available Simpleskills" | upper}}</h1>
+    <div class="sscard-container">
+        {% for ss in available_simpleskills %}
+            {% include 'app/partials/nsscard.html' with ss=ss %}
+        {% endfor %}
+    </div>
 </div>
 
 

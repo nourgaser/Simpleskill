@@ -1,4 +1,8 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'app/partials/header.html' with user=user pageName="Configure - Experience Levels" %}
+{% endblock header %}
 
 {% block content %}
 <h1>Approximate your skill level</h1>

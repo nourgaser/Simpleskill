@@ -35,6 +35,10 @@ h1 {
   font-size: 1.4rem;
 }
 
+ul {
+  list-style: none;
+}
+
 p {
   -ms-word-break: break-all;
   word-break: break-all;
@@ -44,4 +48,31 @@ p {
   -ms-hyphens: auto;
   hyphens: auto;
 }
-/* sets hyphenation by default on paragraphs */
+
+a {
+  text-decoration: none;
+}
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.main_container {
+  margin: 1.5em;
+}

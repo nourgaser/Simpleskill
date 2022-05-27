@@ -1,0 +1,48 @@
+{% block header %} {% load static %}
+<link rel="stylesheet" href="{% static 'app/css/header.css' %}" />
+<header>
+  <a href="{% url 'app:dashboard' %}">
+    <img src="{% static 'logo1.svg' %}" alt="logo" class="logo" />
+  </a>
+  <h1>{{pageName}}</h1>
+
+  <div class="user-section noselect">
+    <p class="menu-toggle">
+      <i class="fa-solid fa-user"></i>
+      Welcome, {{user.first_name}}
+      <i id="menu-caret" class="fa-solid fa-caret-left"></i>
+    </p>
+    <div class="user-menu hidden">
+      <div class="special-user-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="upper">
+        {{user.last_name}} {{user.last_name}}
+        <p>Random Quote Here</p>
+      </div>
+      <div class="lower">
+        <p>Accounts</p>
+        <a href="{% url 'app:configure_index' %}">Settings & Privacy</a>
+        <a href="#">Help</a>
+        <a href="#">Language</a>
+      </div>
+      <a class="logout" href="/logout">
+        <p>Logout</p>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  userSection = document.querySelector(".user-section .menu-toggle");
+  userMenu = document.getElementsByClassName("user-menu")[0];
+  caret = document.getElementById("menu-caret");
+  var userMenuOn = false;
+  userSection.addEventListener("click", (e) => {
+    userMenuOn = !userMenuOn;
+    userMenu.classList.value = `user-menu ${userMenuOn ? "flex" : "hidden"}`;
+    caret.classList.value = `fa-solid fa-caret-${userMenuOn ? "down" : "left"}`;
+  });
+</script>
+
+{% endblock header %}

@@ -1,5 +1,10 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
+{% block header %}
+{% include 'app/partials/header.html' with user=user pageName="Configure" %}
+{% endblock header %}
+
 {% block content %}
+
 <h1>Settings</h1>
 <a href="{% url 'app:configure_interests' %}">Update your interests</a>
 <a href="{% url 'app:configure_experience_level' %}">Update your experience levels</a>

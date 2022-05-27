@@ -1,0 +1,81 @@
+/* ongoing/new simpleskill cards */
+
+.sscard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 1em;
+}
+
+.sscard {
+    display: flex;
+    border: 6px solid var(--dark);
+    border-radius: 6px;
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.4);
+    width: 100%;
+    max-width: 1200px;
+}
+
+.sscard span {
+    font-weight: 700;
+}
+
+.sscard .section1 {
+    padding: 1em;
+    background-color: var(--dark);
+    color: var(--light);
+    text-transform: uppercase;
+    width: 30%;
+    position: relative;
+}
+
+.sscard .section2 {
+    padding: 1em;
+    background-color: var(--light);
+    color: var(--dark);
+    position: relative;
+    width: 70%;
+}
+
+.sscard .title {
+    font-size: larger;
+    font-weight: 700;
+}
+
+.section1 .view-milestones, .section1 .view-prerequisites {
+    position: absolute;
+    bottom: 5%;
+    cursor: pointer;
+}
+
+.section2 .startBtn {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+}
+
+.section2 .milestones {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+
+@media screen and (max-width: 860px) {
+    .sscard {
+        flex-direction: column;
+    }
+    .sscard .section1 {
+        width: 100%;
+    }
+    .sscard .section1 .view-milestones, .sscard .section1 .view-prerequisites {
+        position: relative;
+        bottom: auto;
+    }
+    .section2 .startBtn, .section2 .milestones {
+        position: relative;
+        top: auto;
+        bottom: auto;
+        right: auto;
+    }
+}

@@ -126,7 +126,7 @@ def finish(request, ssid):
     if ss in user.registered_simpleskills.all():
         user.finished_simpleskills.add(ss)
         user.registered_simpleskills.remove(ss)
-    return redirect("/app/finished/%d" % ssid)
+    return redirect("/app/finished/%d" % ss.tags.all()[0].category.id)
 
 
 @login_required

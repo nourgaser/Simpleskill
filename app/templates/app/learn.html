@@ -1,20 +1,17 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ss}}{% endblock title %}
 
-{% block header_title %}{{ss}}{% endblock header_title %}
 
-{% block header_first_name %}{{user.first_name}}{% endblock header_first_name %}
-
-{% block header_menu_name %}
-{{user.first_name}} {{user.last_name}}
-{% endblock header_menu_name %}
+{% block header %}
+{% include 'app/partials/header.html' with user=user pageName="Explore" %}
+{% endblock header %}
 
 {% block content %}
 <div class="main_container">
     <h1>You're learning: {{ss}}</h1>
     <a href="{% url 'app:unlearn' ss.id%}">Drop Simpleskill</a>
-    <a href="{% url 'app:finish' ss.id%}">Mark as Finished</a>
+    <a href="{% url 'app:finish' ss.id %}">Mark as Finished</a>
 
     <div class="milestones">
         {% for milestone in ss.milestones.all %}

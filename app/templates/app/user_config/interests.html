@@ -1,4 +1,8 @@
-{% extends 'app/base.html' %}
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'app/partials/header.html' with user=user pageName="Configure - Interests" %}
+{% endblock header %}
 
 {% block content %}
 <h1>What are your interests?</h1>
