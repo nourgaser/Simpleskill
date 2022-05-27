@@ -2,10 +2,14 @@
 {% load static %}
 {% block title %}Finished Simpleskills{% endblock title %}
 
-
 {% block header %}
 {% include 'app/partials/header.html' with user=user pageName="Finished Simpleskills" %}
 {% endblock header %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'app/css/sscard.css' %}">
+<link rel="stylesheet" href="{% static 'css/buttons/button2.css' %}">
+{% endblock head %}
 
 {% block content %}
 <div class="main_container">
@@ -21,35 +25,18 @@
             {% endfor %}
         </ul>
     </div>
-</div>
-{% comment %} <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> {% endcomment %}
+    {% comment %} <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> {% endcomment %}
 
-<h1>Finished Simpleskills</h1>
-<div class="finished">
-    {% for ss in finished_simpleskills %}
-        <div class="ss-card">
-            <div class="section1">
-                <p style="font-size: 24px">SIMPLESKILL</p>
-                <p class="title">{{ss}}</p>
-                <p>
-                    View prerequisites
-                    <i class="fa-solid fa-angle-right"></i>
-                </p>
-                <div class="prerequisites hidden">
-                    {% for pre in ss.prerequisites.all %}
-                    {{pre}}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="section2">
-                <p style="font-size: 24px">OVERVIEW</p>
-                <p class="desc">{{ss.description}}</p>
-                <p class="level">LEVEL: {{ss.level}}</p>
-                <p class="timeclass">DURATION: {{ss.time_class}}</p>
-                <a href="{% url 'app:unfinish' ss.id %}">MARK NOT FINISHED</a>
-            </div>
-        </div>
-    {% endfor %}
+    <h1>Finished Simpleskills</h1>
+    <div class="finished">
+        {% for ss in finished_simpleskills %}
+            {% include 'app/partials/fsscard.html' with ss=ss%}
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock content %}
+
+{% block footer %}
+{% include 'app/partials/footer.html' %}
+{% endblock footer %}

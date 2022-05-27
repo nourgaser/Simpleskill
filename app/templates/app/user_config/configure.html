@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block header %}
 {% include 'app/partials/header.html' with user=user pageName="Configure" %}
 {% endblock header %}
 
-{% block content %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/buttons/button2.css' %}">
+{% endblock head %}
 
-<h1>Settings</h1>
-<a href="{% url 'app:configure_interests' %}">Update your interests</a>
-<a href="{% url 'app:configure_experience_level' %}">Update your experience levels</a>
-<a href="{% url 'app:configure_interest_levels' %}">Update your interest levels</a>
+{% block content %}
+<div class="main_container">
+    <h1>Settings</h1>
+    <a class="button2" href="{% url 'app:configure_interests' %}">Update your interests</a>
+    <a class="button2" href="{% url 'app:configure_experience_level' %}">Update your experience levels</a>
+    <a class="button2" href="{% url 'app:configure_interest_levels' %}">Update your interest levels</a>
+</div>
 
 {% endblock content %}
+
+{% block footer %}
+{% include 'app/partials/footer.html' %}
+{% endblock footer %}

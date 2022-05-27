@@ -1,6 +1,27 @@
-{% load static %}
-{% block footer %}
-<footer>
-    <h1>COOL FOOTER</h1>
+{% block footer %} {% load static %}
+<link rel="stylesheet" href="{% static 'app/css/footer.css' %}" />
+<footer id="footer">
+  <div class="logo-section">
+    <a href="{% url 'app:dashboard' %}">
+      <img src="{% static 'logo3.svg' %}" alt="logo" class="logo" />
+    </a>
+    <p class="slogan">Bitesize <span>simpleskills</span> on the daily.</p>
+  </div>
+  <p class="copyright">© 2022 Simpleskill, Inc. All rights reserved.</p>
+  <div class="social">
+      <p class="social-heading">{{"find us on" | upper}}</p>
+      <div class="social-icons">
+          <a href="#footer">
+              <i class="social-icon fa-brands fa-github"></i>
+          </a>
+          <a href="#footer">
+              <i class="social-icon fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="#footer">
+              <i class="social-icon fa-brands fa-facebook-f"></i>
+          </a>
+      </div>
+  </div>
 </footer>
+
 {% endblock footer %}

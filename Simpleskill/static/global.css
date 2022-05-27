@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap");
 
 :root {
   --light: #fcfaf6;
   --dark: #1c2a2c;
   --dark-light: #293e41;
   --accent: #82b0b7;
+  --accent-light: #a8c4c8;
+  --ss-gold: #f8d418;
 }
 
 * {
@@ -15,7 +17,7 @@ body {
   min-height: 100%;
   background: var(--light);
   color: var(--dark);
-  font-family: 'Sen', sans-serif;
+  font-family: "Sen", sans-serif;
 }
 /* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */
 
@@ -53,7 +55,10 @@ a {
   text-decoration: none;
 }
 
-a, a:visited, a:hover, a:active {
+a,
+a:visited,
+a:hover,
+a:active {
   color: inherit;
 }
 
@@ -66,13 +71,28 @@ a, a:visited, a:hover, a:active {
 }
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 .main_container {
   margin: 1.5em;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+/* Trick */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
 }

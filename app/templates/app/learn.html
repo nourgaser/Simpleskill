@@ -7,11 +7,15 @@
 {% include 'app/partials/header.html' with user=user pageName="Explore" %}
 {% endblock header %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/buttons/button2.css' %}">
+{% endblock head %}
+
 {% block content %}
 <div class="main_container">
     <h1>You're learning: {{ss}}</h1>
-    <a href="{% url 'app:unlearn' ss.id%}">Drop Simpleskill</a>
-    <a href="{% url 'app:finish' ss.id %}">Mark as Finished</a>
+    <a class="button2" href="{% url 'app:unlearn' ss.id%}">Drop Simpleskill</a>
+    <a class="button2" href="{% url 'app:finish' ss.id %}">Mark as Finished</a>
 
     <div class="milestones">
         {% for milestone in ss.milestones.all %}
@@ -40,3 +44,7 @@
 </div>
 
 {% endblock content %}
+
+{% block footer %}
+{% include 'app/partials/footer.html' %}
+{% endblock footer %}
