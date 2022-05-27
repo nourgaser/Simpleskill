@@ -55,6 +55,7 @@ footer .social-icon:active {
 @media screen and (max-width: 1200px) {
   footer, footer .logo-section {
       flex-direction: column;
+      text-align: center;
   }
   footer .copyright,  footer .social, footer .logo-section {
     width: unset;
