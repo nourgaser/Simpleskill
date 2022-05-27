@@ -50,3 +50,13 @@ footer .social-icon:hover {
 footer .social-icon:active {
   color: rgba(255, 255, 255, 0.5);
 }
+
+
+@media screen and (max-width: 1200px) {
+  footer, footer .logo-section {
+      flex-direction: column;
+  }
+  footer .copyright,  footer .social, footer .logo-section {
+    width: unset;
+  }
+}
